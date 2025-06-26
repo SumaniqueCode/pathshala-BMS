@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>
+      {% block title %}
+        Pathshala
+      {% endblock %}
+    </title>
+    {% comment %} <link rel="stylesheet" href="/static/css/style.css" />
+    {% block extra_css %}
+
+    {% endblock %} {% endcomment %}
+  </head>
+  <body class="font-[Segoe UI] uppercase text-gray-700">
+    {% if messages %}
+      <div class="fixed top-20 right-0 space-y-2 z-10" data-dismiss>
+        {% for message in messages %}
+          {% if message.tags == 'success' %}
+            <div class="px-4 py-3 rounded shadow bg-green-500 text-white">{{ message }}</div>
+          {% elif message.tags == 'error' %}
+            <div class="px-4 py-3 rounded shadow bg-red-500 text-white">{{ message }}</div>
+          {% elif message.tags == 'warning' %}
+            <div class="px-4 py-3 rounded shadow bg-yellow-500 text-black">{{ message }}</div>
+          {% else %}
+            <div class="px-4 py-3 rounded shadow bg-gray-500 text-white">{{ message }}</div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <script>
+      setTimeout(() => {
+        document.querySelectorAll('[data-dismiss]').forEach((el) => el.remove())
+      }, 3000)
+    </script>
+    <nav class="flex justify-between bg-green-100 flex p-10">
+      <a class="" href="/">
+        <div class="leftsection flex">
+          <div class="logo w-20 rounded-full border-2 bg-lime-800">
+            <img src="/static/images/favicon.ico" alt="BMS Logo" />
+          </div>
+          <div class="tracking-[2px] text-2xl font-semibold mt-auto indent-8">Digital Pathshala</div>
+        </div>
+      </a>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="rightsection my-auto">
+        <div>
+          <ul class="flex gap-12 text-sm font-bold">
+            <li class="hover:border-b-2 p-1 transition-tranform ease-in-out duration-100">
+              <a href="/about-us">About Us</a>
+            </li>|<li class="hover:border-b-2 p-1 transition-tranform ease-in-out duration-100">
+              <a href="/blogs">Blogs</a>
+            </li>|<li class="hover:border-b-2 p-1 transition-tranform ease-in-out duration-100">
+              <a href="/add-blog">Write</a>
+            </li>|<li class="hover:border-b-2 p-1 transition-tranform ease-in-out duration-100">
+              <a href="/auth/log-in">Log-In</a>
+            </li>|<li class="hover:bg-green-600 hover:text-white p-1 ease-in-out duration-300 rounded-lg">
+              <a href="/auth/sign-up" class="">Get Started</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar md:hidden">
+      <div class="sidebar-header">
+        <div class="logo">
+          <img src="/static/Assets/sidebar_img.jpg" alt="BMS Logo" />
+        </div>
+        <div class="close-btn">&times;</div>
+      </div>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="/about-us">About Us</a>
+        </li>
+        <li>
+          <a href="/blogs">Blogs</a>
+        </li>
+        <li>
+          <a href="/add-blog">Write</a>
+        </li>
+        <li>
+          <a href="/log-in">Log In</a>
+        </li>
+        <li>
+          <a href="/sign-up" class="getstarted-btn">Get Started</a>
+        </li>
+      </ul>
+    </div>
+    <div class="overlay"></div>
+    <!-- End for Header -->
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const hamburger = document.querySelector('.hamburger')
+        const sidebar = document.querySelector('.sidebar')
+        const overlay = document.querySelector('.overlay')
+        const closeBtn = document.querySelector('.close-btn')
+      
+        // Function to open sidebar
+        function openSidebar() {
+          sidebar.classList.add('active')
+          overlay.classList.add('active')
+          document.body.style.overflow = 'hidden' // Prevent scrolling when sidebar is open
+        }
+      
+        // Function to close sidebar
+        function closeSidebar() {
+          sidebar.classList.remove('active')
+          overlay.classList.remove('active')
+          document.body.style.overflow = '' // Restore scrolling
+        }
+      
+        // Event listeners
+        hamburger.addEventListener('click', openSidebar)
+        closeBtn.addEventListener('click', closeSidebar)
+        overlay.addEventListener('click', closeSidebar)
+      
+        // Close sidebar when clicking on a link
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a')
+        sidebarLinks.forEach((link) => {
+          link.addEventListener('click', closeSidebar)
+        })
+      
+        // Close sidebar on window resize if screen becomes larger than mobile breakpoint
+        window.addEventListener('resize', function () {
+          if (window.innerWidth > 768) {
+            closeSidebar()
+          }
+        })
+      })
+    </script>
+    <div class="flex flex-col">
+      {% block content %}
+
+      {% endblock %}
+    </div>
+
+    <footer class="footer">This is footer</footer>
+  </body>
+</html>
