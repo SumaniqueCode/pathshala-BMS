@@ -15,7 +15,6 @@
         <h1 class="text-2xl font-bold text-green-800 mb-2 normal-case">Sign in to Digital Pathshala</h1>
         <p class="text-gray-600 normal-case">Access your account and manage your blogs!</p>
       </div>
-
       <!-- Login Form -->
       <form class="space-y-4" method="post" action="/auth/signin-user">
         {% csrf_token %}
@@ -23,11 +22,13 @@
         <div class="space-y-2">
           <label for="username" class="block text-sm font-semibold text-gray-700 normal-case">Username</label>
           <input class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none" type="text" id="username" name="username" placeholder="Enter your username" required />
+         {%if errors.username%} <span class="text-sm text-red-500">{{errors.username}} </span>{%endif%}
         </div>
 
         <div class="space-y-2">
           <label for="password" class="block text-sm font-semibold text-gray-700 normal-case">Password</label>
           <input class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none" type="password" id="password" name="password" placeholder="Enter your password" required />
+        {%if errors.password %}<span class="text-sm text-red-500">{{errors.password}} </span>{%endif%}
         </div>
 
         <button class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors shadow-lg hover:shadow-xl" type="submit">Sign In</button>

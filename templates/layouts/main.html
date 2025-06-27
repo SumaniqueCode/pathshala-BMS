@@ -16,7 +16,7 @@
       <div id="messages" class="fixed top-20 right-0 transform translate-x-full opacity-0 transition-transform transition-opacity duration-300 ease-out max-w-sm rounded-md p-4 z-50">
         {% for message in messages %}
           {% if message.tags == 'success' %}
-            <div class="px-12 py-3 rounded-xl shadow-lg bg-green-100 border-2 border-green-600 font-semibold text-md">This is test error</div>
+            <div class="px-12 py-3 rounded-xl shadow-lg bg-green-100 border-2 border-green-600 font-semibold text-md">{{ message }}</div>
           {% elif message.tags == 'error' %}
             <div class="px-12 py-3 rounded-xl shadow-lg bg-red-100 border-2 border-red-600 font-semibold text-md">{{ message }}</div>
           {% elif message.tags == 'warning' %}
@@ -54,14 +54,20 @@
             <a href="/add-blog" class="text-gray-700 hover:text-green-600 transition-colors p-1">Write</a>
             <div class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></div>
           </li>
-          <li class="text-gray-400">|</li>
-          <li class="relative group pb-1">
-            <a href="/auth/log-in" class="text-gray-700 hover:text-green-600 transition-colors p-1">Log-In</a>
-            <div class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></div>
-          </li>
+          {% if not user.is_authenticated %}
+            <li class="text-gray-400">|</li>
+            <li class="relative group pb-1">
+              <a href="/auth/log-in" class="text-gray-700 hover:text-green-600 transition-colors p-1">Log-In</a>
+              <div class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full group-hover:left-0"></div>
+            </li>
+          {% endif %}
           <li class="text-gray-400">|</li>
           <li class="hover:bg-green-600 hover:text-white px-4 py-2 transition-all duration-300 rounded-lg">
-            <a href="/auth/sign-up">Get Started</a>
+            {% if user.is_authenticated %}
+              <a href="/blogs">Get Started</a>
+            {% else %}
+              <a href="/auth/sign-up">Get Started</a>
+            {% endif %}
           </li>
         </ul>
       </div>
