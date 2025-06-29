@@ -1,7 +1,7 @@
 {% extends 'layouts/main.html' %}
 
 {% block title %}
-Login
+Signup
 {% endblock %}
 
 {% block content %}
@@ -327,7 +327,7 @@ Login
           {% endif %}
         </div>
         <div class="space-y-2">
-          <label for="address" class="block text-sm font-semibold text-gray-700 normal-case">Last Name</label>
+          <label for="address" class="block text-sm font-semibold text-gray-700 normal-case">Address</label>
           <input
             class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
             type="text" id="address" name="address" placeholder="Enter your address" required />
@@ -338,12 +338,12 @@ Login
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="space-y-2">
-          <label for="dob" class="block text-sm font-semibold text-gray-700 normal-case"> Date of Birth</label>
+          <label for="dob" class="block text-sm font-semibold text-gray-700 normal-case"> Date of Birth </label>
           <input type="date" name="dob" id="dob"
             class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
             required>
           {% if errors.dob %}
-            <span class="text-sm text-red-500">{{ errors.dob }}</span>
+          <span class="text-sm text-red-500">{{ errors.dob }}</span>
           {% endif %}
         </div>
         <div class="space-y-2">
@@ -356,9 +356,18 @@ Login
             <option value="Others">Others</option>
           </select>
           {% if errors.gender %}
-            <span class="text-sm text-red-500">{{ errors.gender }}</span>
+          <span class="text-sm text-red-500">{{ errors.gender }}</span>
           {% endif %}
         </div>
+      </div>
+      <div class="space-y-2">
+        <label for="phone" class="block text-sm font-semibold text-gray-700 normal-case">Phone Number</label>
+        <input
+          class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
+          type="tel" id="phone" name="phone" placeholder="Enter your phone" required />
+        {% if errors.phone %}
+        <span class="text-sm text-red-500">{{ errors.phone }}</span>
+        {% endif %}
       </div>
       <div class="space-y-2">
         <label for="profile_image" class="block text-sm font-semibold text-gray-700 normal-case">Profile Image</label>
