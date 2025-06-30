@@ -26,3 +26,18 @@ def loginUser(request):
         
         if errors:
             return render(request, 'pages/auth/login.html', {'errors': errors}) # renders login.html with errors
+        
+def signupUser(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        email = request.POST.get("email")
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        address = request.POST.get('address')
+        phone = request.POST.get('phone')
+        gender = request.POST.get('gender')
+        profile_image = request.FILES.get('profile_image')
+        dob = request.POST.get('dob')
+        nationality = request.POST.get('nationality')
