@@ -49,7 +49,7 @@ def signupUser(request):
         #creating a new profile in Profile Model for user
         # Profile.objects.create(user=user, address=address, phone=phone, gender=gender, dob=dob, nationality=nationality, profile_image=profile_image)
        
-        #alternative method
+        # alternative method
         # user =  User(username=username, email=email, first_name=first_name, last_name=last_name)
         # user.set_password(password)
         # user.save()
