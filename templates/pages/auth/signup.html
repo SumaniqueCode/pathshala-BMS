@@ -16,8 +16,8 @@ Signup
       <h1 class="text-2xl font-bold text-green-800 mb-2 normal-case">Register user to Digital Pathshala</h1>
       <p class="text-gray-600 normal-case">Access your account and manage your blogs!</p>
     </div>
-    <!-- Login Form -->
-    <form class="space-y-4" method="post" action="/auth/aignup-user" enctype="multipart/form-data">
+    <!-- Signup Form -->
+    <form class="space-y-4" method="post" action="/auth/signup-user" enctype="multipart/form-data">
       {% csrf_token %}
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -25,7 +25,7 @@ Signup
           <label for="last_name" class="block text-sm font-semibold text-gray-700 normal-case">First Name</label>
           <input
             class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
-            type="text" id="first_name" name="first_name" placeholder="Enter your first_name" required />
+            type="text" id="first_name" name="first_name" placeholder="Enter your first_name"  />
           {% if errors.first_name %}
           <span class="text-sm text-red-500">{{ errors.first_name }}</span>
           {% endif %}
@@ -34,27 +34,41 @@ Signup
           <label for="last_name" class="block text-sm font-semibold text-gray-700 normal-case">Last Name</label>
           <input
             class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
-            type="text" id="last_name" name="last_name" placeholder="Enter your last_name" required />
+            type="text" id="last_name" name="last_name" placeholder="Enter your last_name"  />
           {% if errors.last_name %}
           <span class="text-sm text-red-500">{{ errors.last_name }}</span>
           {% endif %}
         </div>
       </div>
+
+      <!-- username field -->
       <div class="space-y-2">
         <label for="username" class="block text-sm font-semibold text-gray-700 normal-case">Username</label>
         <input
           class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
-          type="text" id="username" name="username" placeholder="Enter your username" required />
+          type="text" id="username" name="username" placeholder="Enter your username"  />
         {% if errors.username %}
         <span class="text-sm text-red-500">{{ errors.username }}</span>
         {% endif %}
       </div>
 
+      <!-- Email field -->
+      <div class="space-y-2">
+        <label for="email" class="block text-sm font-semibold text-gray-700 normal-case">Email</label>
+        <input
+          class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
+          type="text" id="email" name="email" placeholder="Enter your email"  />
+        {% if errors.email %}
+        <span class="text-sm text-red-500">{{ errors.email }}</span>
+        {% endif %}
+      </div>
+
+      <!-- password field -->
       <div class="space-y-2">
         <label for="password" class="block text-sm font-semibold text-gray-700 normal-case">Password</label>
         <input
           class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
-          type="password" id="password" name="password" placeholder="Enter your password" required />
+          type="password" id="password" name="password" placeholder="Enter your password"  />
         {% if errors.password %}
         <span class="text-sm text-red-500">{{ errors.password }}</span>
         {% endif %}
@@ -64,7 +78,7 @@ Signup
           Password</label>
         <input
           class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
-          type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required />
+          type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password"  />
         {% if errors.confirm_password %}
         <span class="text-sm text-red-500">{{ errors.confirm_password }}</span>
         {% endif %}
@@ -330,7 +344,7 @@ Signup
           <label for="address" class="block text-sm font-semibold text-gray-700 normal-case">Address</label>
           <input
             class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
-            type="text" id="address" name="address" placeholder="Enter your address" required />
+            type="text" id="address" name="address" placeholder="Enter your address"  />
           {% if errors.address %}
           <span class="text-sm text-red-500">{{ errors.address }}</span>
           {% endif %}
@@ -341,7 +355,7 @@ Signup
           <label for="dob" class="block text-sm font-semibold text-gray-700 normal-case"> Date of Birth </label>
           <input type="date" name="dob" id="dob"
             class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
-            required>
+            >
           {% if errors.dob %}
           <span class="text-sm text-red-500">{{ errors.dob }}</span>
           {% endif %}
@@ -364,7 +378,7 @@ Signup
         <label for="phone" class="block text-sm font-semibold text-gray-700 normal-case">Phone Number</label>
         <input
           class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
-          type="tel" id="phone" name="phone" placeholder="Enter your phone" required />
+          type="tel" id="phone" name="phone" placeholder="Enter your phone"  />
         {% if errors.phone %}
         <span class="text-sm text-red-500">{{ errors.phone }}</span>
         {% endif %}
@@ -381,7 +395,7 @@ Signup
 
       <button
         class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors shadow-lg hover:shadow-xl"
-        type="submit">Sign In</button>
+        type="submit">Sign Up</button>
     </form>
 
     <!-- Divider -->

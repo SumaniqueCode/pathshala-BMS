@@ -24,7 +24,8 @@ from users.views import *
 auth_urlpatterns = [
     path('log-in/', loginPage),
     path('sign-up/', signupPage),
-    path('signin-user', loginUser)
+    path('signin-user', loginUser),
+    path('signup-user', signupUser),
 ]
 
 urlpatterns = [
