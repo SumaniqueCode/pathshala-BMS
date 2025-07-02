@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .models import Profile # model exists in same folder
-
+from django.contrib.auth.password_validation import validate_password
+from django.core.validators import validate_email
 
 def loginUser(request):
     errors = {}
@@ -29,6 +30,7 @@ def loginUser(request):
             return render(request, 'pages/auth/login.html', {'errors': errors}) # renders login.html with errors
         
 def signupUser(request):
+    errors = {}
     if request.method == "POST":
         username = request.POST.get('username')
         email = request.POST.get("email")
@@ -42,6 +44,39 @@ def signupUser(request):
         profile_image = request.FILES.get('profile_image')
         dob = request.POST.get('dob')
         nationality = request.POST.get('nationality')
+        
+        user_exists = User.objects.filter(username = username).exists()
+        email_exists = User.objects.filter(email=email).exists()
+        phone_exits = Profile.objects.filter(phone=phone).exists()
+        
+        if user_exists:
+            errors['username'] = "Username already exists."
+        if email_exists:
+            errors['email'] = "Email already exists."
+        if phone_exits:
+            errors['phone'] = "Phone number already exists."
+        if len(phone) != 10:
+            errors['phone'] = "Phone number should be 10 digits."
+        if len(first_name)<3:
+            errors['first_name'] = " Enter at least 3 characters."
+        if password != confirm_password:
+            errors['confirm_password'] = "Passwords do not match."
+        if len(username) <3:
+            errors['username'] = "Username should be at least 3 characters."
+        if len(address)<3:
+            errors['address'] = "Enter at least 3 characters."
+        try:
+            validate_password(password)
+        except Exception as e:
+            errors['password'] = e
+            
+        try:
+            validate_email(email)
+        except Exception as e:
+            errors['email'] = e
+        
+        if errors:
+            return render(request, 'pages/auth/signup.html', {'errors': errors}) # renders signup.html
         
         #creating a new user in User Model
         user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)

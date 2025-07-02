@@ -11,3 +11,6 @@ def loginPage(request):
 
 def signupPage(request):
     return render(request, 'pages/auth/signup.html')
+
+def blogPage(request):
+    return render(request, 'pages/blogs.html')

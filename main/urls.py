@@ -33,6 +33,7 @@ urlpatterns = [
     path('', landingPage),
     path('about/', aboutPage),
     path('auth/', include(auth_urlpatterns)),
+    path('blogs/',blogPage ),
 ]
 
 if settings.DEBUG:
