@@ -69,6 +69,14 @@
               <a href="/auth/sign-up">Get Started</a>
             {% endif %}
           </li>
+          {%if user.is_authenticated%}
+           <li class="text-gray-400">|</li>
+           <li>
+              <a href="/profile">
+                <img class="w-12 h-12 rounded-full border-2 object-cover" src="{{user.profile.profile_image.url}}" alt="Profile Image">
+              </a>
+           </li>
+          {%endif%}
         </ul>
       </div>
 

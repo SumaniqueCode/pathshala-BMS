@@ -51,8 +51,6 @@ def signupUser(request):
         
         if user_exists:
             errors['username'] = "Username already exists."
-        if email_exists:
-            errors['email'] = "Email already exists."
         if phone_exits:
             errors['phone'] = "Phone number already exists."
         if len(phone) != 10:
@@ -71,31 +69,34 @@ def signupUser(request):
             errors['password'] = e
             
         try:
+            if email_exists:
+                errors['email'] = ["Email already exists.",]
             validate_email(email)
         except Exception as e:
             errors['email'] = e
         
         if errors:
+            print(errors)
             return render(request, 'pages/auth/signup.html', {'errors': errors}) # renders signup.html
-        
-        #creating a new user in User Model
-        user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
-        
-        #creating a new profile in Profile Model for user
-        # Profile.objects.create(user=user, address=address, phone=phone, gender=gender, dob=dob, nationality=nationality, profile_image=profile_image)
-       
-        # alternative method
-        # user =  User(username=username, email=email, first_name=first_name, last_name=last_name)
-        # user.set_password(password)
-        # user.save()
-        
-        profile = Profile(user=user, address=address, phone=phone, gender=gender, dob=dob, nationality=nationality)
-        if profile_image:
-            profile.profile_image = profile_image
         else:
-           profile.profile_image = 'users/default_user.png'
+            #creating a new user in User Model
+            user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
+            
+            #creating a new profile in Profile Model for user
+            # Profile.objects.create(user=user, address=address, phone=phone, gender=gender, dob=dob, nationality=nationality, profile_image=profile_image)
         
-        profile.save()
-        
-        messages.success(request, "You have successfully signed up")
-        return redirect('/auth/log-in')
+            # alternative method
+            # user =  User(username=username, email=email, first_name=first_name, last_name=last_name)
+            # user.set_password(password)
+            # user.save()
+            
+            profile = Profile(user=user, address=address, phone=phone, gender=gender, dob=dob, nationality=nationality)
+            if profile_image:
+                profile.profile_image = profile_image
+            else:
+                profile.profile_image = 'users/default_user.png'
+            
+            profile.save()
+            
+            messages.success(request, "You have successfully signed up")
+            return redirect('/auth/log-in')

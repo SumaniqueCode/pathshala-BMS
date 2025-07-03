@@ -1,0 +1,12 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="flex my-12">
+    <div class="bg-gray-100 flex flex-col gap-4 items-center min-w-lg shadow-2xl mx-auto py-6 min-h-[70vh] border-b-4 border-r-4 rounded-xl border-green-800">
+        <h1 class="text-2xl font-bold">User Details</h1>
+        <div class="">
+            <img class="w-18 h-18 object-cover rounded-full border-2" src="{{user.profile.profile_image.url}}" alt="Profile image">
+        </div>
+    </div>
+</div>
+{% endblock %}

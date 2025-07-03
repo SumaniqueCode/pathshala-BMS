@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 def landingPage(request):
     return render(request,'pages/index.html')
@@ -14,3 +15,7 @@ def signupPage(request):
 
 def blogPage(request):
     return render(request, 'pages/blogs.html')
+
+@login_required(login_url='/auth/log-in/')
+def profilePage(request):
+    return render(request, 'pages/auth/profile.html')

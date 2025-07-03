@@ -34,6 +34,7 @@ urlpatterns = [
     path('about/', aboutPage),
     path('auth/', include(auth_urlpatterns)),
     path('blogs/',blogPage ),
+    path('profile/', profilePage ),
 ]
 
 if settings.DEBUG:
