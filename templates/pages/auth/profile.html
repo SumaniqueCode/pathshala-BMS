@@ -1,12 +1,34 @@
 {% extends 'layouts/main.html' %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-<div class="flex my-12">
+<div class="flex flex-col my-12 w-1/3 self-center">
     <div class="bg-gray-100 flex flex-col gap-4 items-center min-w-lg shadow-2xl mx-auto py-6 min-h-[70vh] border-b-4 border-r-4 rounded-xl border-green-800">
         <h1 class="text-2xl font-bold">User Details</h1>
         <div class="">
             <img class="w-18 h-18 object-cover rounded-full border-2" src="{{user.profile.profile_image.url}}" alt="Profile image">
         </div>
+        <div class="grid grid-cols-2 font-semibold text-lg gap-1">
+            <p>Name</p>
+            <p class="text-blue-900">{{user.first_name}} {{user.last_name}}</p>
+            <p>Username</p>
+            <p class="text-blue-900">{{user.username}}</p>
+            <p>Email</p>
+            <p class="text-blue-900">{{user.email}}</p>
+            <p>Address</p>
+            <p class="text-blue-900">{{user.profile.address}}</p>
+            <p>Gender</p>
+            <p class="text-blue-900">{{user.profile.gender}}</p>
+            <p>Phone</p>
+            <p class="text-blue-900">{{user.profile.phone}}</p>
+            <p>Date of Birth</p>
+            <p class="text-blue-900">{{user.profile.dob}}</p>
+            <p>Nationality</p>
+            <p class="text-blue-900">{{user.profile.nationality}}</p>
+        </div>
+    </div>
+    <div class="flex gap-4 items-center my-6">
+        <a class="px-12 py-2 rounded-lg bg-blue-700 text-white font-semibold text-md" href="/auth/edit-user">Edit</a>
+        <a class="px-12 py-2 rounded-lg bg-red-700 text-white font-semibold text-md" href="/auth/logout">Logout</a>
     </div>
 </div>
 {% endblock %}

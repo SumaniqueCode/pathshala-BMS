@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Profile # model exists in same folder
 from django.contrib.auth.password_validation import validate_password
 from django.core.validators import validate_email
+from django.contrib.auth.decorators import login_required
 
 def loginUser(request):
     errors = {}
@@ -100,3 +101,14 @@ def signupUser(request):
             
             messages.success(request, "You have successfully signed up")
             return redirect('/auth/log-in')
+
+def logoutUser(request):
+    logout(request)
+    messages.success(request, "User Logged out successfully!")
+    return redirect('/')
+
+@login_required(login_url="/auth/log-in")
+def editUserPage(request):
+    return render(request, 'pages/auth/editPage.html')
+    
+    
