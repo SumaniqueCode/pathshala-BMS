@@ -94,6 +94,7 @@ Signup
           <select
             class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
             id="nationality" name="nationality">
+            <option value="{{request.user.profile.nationality}}">{{request.user.profile.nationality}} </option>
             <option value="Afghanistan">Afghanistan</option>
             <option value="Åland Islands">Åland Islands</option>
             <option value="Albania">Albania</option>
@@ -369,9 +370,9 @@ Signup
           <select
             class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none"
             id="gender" name="gender">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Others">Others</option>
+            <option value="Male" {%if request.user.profile.gender == "Male"%}selected{%endif%}>Male</option>
+            <option value="Female" {%if request.user.profile.gender == "Female"%}selected{%endif%}>Female</option>
+            <option value="Others" {%if request.user.profile.gender == "Others"%}selected{%endif%}>Others</option>
           </select>
           {% if errors.gender %}
           <span class="text-sm text-red-500">{{ errors.gender }}</span>
