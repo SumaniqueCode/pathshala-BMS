@@ -20,6 +20,7 @@ from .views import *
 from django.conf.urls.static import static
 from main import settings
 from users.views import *
+from blogs.views import addBlogPage
 
 auth_urlpatterns = [
     path('log-in/', loginPage),
@@ -31,6 +32,10 @@ auth_urlpatterns = [
     path('update-user', updateUser),
 ]
 
+blog_urlpatterns = [
+    path('add', addBlogPage)
+]
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', landingPage),
@@ -38,6 +43,7 @@ urlpatterns = [
     path('auth/', include(auth_urlpatterns)),
     path('blogs/',blogPage ),
     path('profile/', profilePage ),
+    path('blog/', include(blog_urlpatterns)),
 ]
 
 if settings.DEBUG:

@@ -14,7 +14,7 @@ def signupPage(request):
     return render(request, 'pages/auth/signup.html')
 
 def blogPage(request):
-    return render(request, 'pages/blogs.html')
+    return render(request, 'pages/blogs/blogs.html')
 
 @login_required(login_url='/auth/log-in/')
 def profilePage(request):
