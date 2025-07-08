@@ -1,5 +1,62 @@
 {% extends 'layouts/main.html' %}
-{% block title %} Add Blog {% endblock %}
+
+{% block title %}
+  Add Blog
+{% endblock %}
+
 {% block content %}
-  <h1>This is blog register page</h1>
+  <div class="min-h-[80vh] flex justify-center p-6">
+    <div class="bg-white/80 backdrop-blur-md border-2 border-green-200 rounded-2xl w-full max-w-2xl px-10 py-8 shadow-2xl">
+      <!-- Header Section -->
+      <div class="text-center mb-4">
+        <div class="w-20 h-20 mx-auto mb-4 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg">
+          <img src="/static/images/favicon.ico" alt="Digital Pathshala Logo" />
+        </div>
+        <h1 class="text-2xl font-bold text-green-800 mb-2 normal-case">Create New Blog</h1>
+      </div>
+      <!-- Login Form -->
+      <form class="space-y-4" method="post" action="/auth/signin-user">
+        {% csrf_token %}
+
+        <div class="space-y-2">
+          <label for="title" class="block text-sm font-semibold text-gray-700 normal-case">Title</label>
+          <input class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none" type="text" id="title" name="title" placeholder="Enter your Title" required />
+          {% if errors.title %}
+            <span class="text-sm text-red-500">{{ errors.title }}</span>
+          {% endif %}
+        </div>
+
+        <div class="space-y-2">
+          <label for="content" class="block text-sm font-semibold text-gray-700 normal-case">Content</label>
+          <textarea rows="4" class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none" type="text" id="content" name="content" placeholder="Enter your content" required></textarea>
+          {% if errors.content %}
+            <span class="text-sm text-red-500">{{ errors.content }}</span>
+          {% endif %}
+        </div>
+        <div class="space-y-2">
+          <label for="tags" class="block text-sm font-semibold text-gray-700 normal-case">Tags</label>
+          <input class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none" type="text" id="tags" name="tags" placeholder="Enter your tags" required />
+          {% if errors.tags %}
+            <span class="text-sm text-red-500">{{ errors.tags }}</span>
+          {% endif %}
+        </div>
+        <div class="space-y-2">
+          <label for="image" class="block text-sm font-semibold text-gray-700 normal-case">Image</label>
+          <input class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none" type="file" id="image" name="image" />
+          {% if errors.image %}
+            <span class="text-sm text-red-500">{{ errors.image }}</span>
+          {% endif %}
+        </div>
+        <div class="space-y-2">
+          <label for="attachment" class="block text-sm font-semibold text-gray-700 normal-case">Attachment</label>
+          <input class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none" type="file" id="attachment" name="attachment" />
+          {% if errors.attachment %}
+            <span class="text-sm text-red-500">{{ errors.attachment }}</span>
+          {% endif %}
+        </div>
+
+        <button class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors shadow-lg hover:shadow-xl" type="submit">Add Blog</button>
+      </form>
+    </div>
+  </div>
 {% endblock %}
