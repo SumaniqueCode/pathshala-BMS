@@ -9,12 +9,17 @@ class Blog(models.Model):
     def generateAttachmentPath(instance, filename):
         return f'blog/{instance.author.username}/attachments/{filename}'
     
+    class StatusOptions(models.TextChoices):
+        ACTIVE = "Active", "Active"
+        INACTIVE = "Inactive", "Inactive"
+    
     title = models.CharField(max_length=50 )
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     tags = TaggableManager(blank=True)
     image = models.ImageField(blank=True, null=True , upload_to=generateImagePath)
     attachment = models.FileField(blank=True, null=True, upload_to=generateAttachmentPath)
+    status = models.CharField(max_length=8, choices=StatusOptions, default=StatusOptions.INACTIVE)
     created_at = models.DateTimeField( auto_now_add=True, editable=False )
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 

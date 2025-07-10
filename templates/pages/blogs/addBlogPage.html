@@ -15,7 +15,7 @@
         <h1 class="text-2xl font-bold text-green-800 mb-2 normal-case">Create New Blog</h1>
       </div>
       <!-- Blog Form -->
-      <form class="space-y-4" method="post" action="/blog/create">
+      <form class="space-y-4" method="post" action="/blog/create" enctype="multipart/form-data" >
         {% csrf_token %}
 
         <div class="space-y-2">

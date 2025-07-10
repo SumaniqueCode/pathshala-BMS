@@ -1,8 +1,10 @@
-{%extends 'layouts/main.html'%}
+{% extends 'layouts/main.html' %}
 
-{%block title%}
-Blogs
-{%endblock%}
-{%block content%}
-<h1>This is blog page</h1>
-{%endblock%}
+{% block title %}
+  Blogs
+{% endblock %}
+{% block content %}
+  {% for blog in blogs %}
+    <div>{{ blog.title }} {{ blog.created_at }}</div>
+  {% endfor %}
+{% endblock %}

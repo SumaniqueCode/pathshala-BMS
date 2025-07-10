@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from blogs.models import Blog
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url='/auth/log-in')
 def addBlogPage(request):
     return render(request, "pages/blogs/addBlogPage.html")
 
@@ -28,7 +29,7 @@ def validate_blog(data):
     else:
         splitted_tags = tags.split(",")
         for tag in splitted_tags:
-            if len(tag) < 3 or len(tag) > 15:
+            if len(tag.strip()) < 2 or len(tag.strip()) > 15:
                 errors["tags"] = "Tag must be at least 3 and maximum 15 character long."
             if len(splitted_tags) > 5:
                 errors["tags"] = "Tag must not be more than 5. "
@@ -67,7 +68,8 @@ def createBlog(request):
             attachment=data["attachment"],
             author = request.user
         )
-        blog.tags.add(data['tags'])
-
+        # blog.tags.add(*data['tags'].split(",")) # split() seperates the data and keeps in list and * unwraps the list
+        #Alternative Way
+        blog.tags.add(*[tag.strip() for tag in data['tags'].split(',')])
         messages.success(request, "Blog Created Successfully!")
         return redirect("/blogs")
