@@ -73,3 +73,7 @@ def createBlog(request):
         blog.tags.add(*[tag.strip() for tag in data['tags'].split(',')])
         messages.success(request, "Blog Created Successfully!")
         return redirect("/blogs")
+
+def blogDetails(request,id):
+    blog = Blog.objects.get(id=id)
+    return render( request, 'pages/blogs/blogDetails.html', {"blog": blog})

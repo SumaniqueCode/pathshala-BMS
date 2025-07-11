@@ -14,39 +14,43 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import include, path
 from .views import *
 from django.conf.urls.static import static
 from main import settings
 from users.views import *
-from blogs.views import addBlogPage, createBlog
+from blogs.views import *
 
 auth_urlpatterns = [
-    path('log-in/', loginPage),
-    path('sign-up/', signupPage),
-    path('signin-user', loginUser),
-    path('signup-user', signupUser),
-    path('logout', logoutUser),
-    path('edit-user', editUserPage),
-    path('update-user', updateUser),
+    path("log-in/", loginPage),
+    path("sign-up/", signupPage),
+    path("signin-user", loginUser),
+    path("signup-user", signupUser),
+    path("logout", logoutUser),
+    path("edit-user", editUserPage),
+    path("update-user", updateUser),
 ]
 
 blog_urlpatterns = [
-    path('add', addBlogPage),
-    path('create', createBlog),
+    path("add", addBlogPage),
+    path("create", createBlog),
+    path("<int:id>", blogDetails),  # "blog/{{blog.id}}" e.g: "blog/1"
 ]
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', landingPage),
-    path('about/', aboutPage),
-    path('auth/', include(auth_urlpatterns)),
-    path('blogs/',blogPage ),
-    path('profile/', profilePage ),
-    path('blog/', include(blog_urlpatterns)),
+    path("admin/", admin.site.urls),
+    path("", landingPage),
+    path("about/", aboutPage),
+    path("auth/", include(auth_urlpatterns)),
+    path("blogs/", blogPage),
+    path("profile/", profilePage),
+    path("blog/", include(blog_urlpatterns)),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+    urlpatterns += static(
+        settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0]
+    )
