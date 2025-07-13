@@ -20,8 +20,8 @@
             <p class="text-sm">{{ blog.created_at|date:'M d, Y' }}</p>
           </div>
         </div>
-        <div class="p-4">
-          <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="rounded-sm" />
+        <div class="overflow-hidden w-full">
+          <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="rounded-sm w-full h-80 object-cover" />
         </div>
         <div class="bg-green-200 mx-2 border-l-4 border-green-500 rounded-lg p-4">
           <p class="text-md text-gray-700">{{ blog.content }}</p>
