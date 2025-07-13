@@ -10,7 +10,11 @@
       <div class="max-w-sm bg-white hover:scale-[102%] duration-300 border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
         <a href="/blog/{{blog.id}}" class=""><img class="my-2 mx-auto rounded-t-lg h-60" src="{{blog.image.url}}" alt="" /></a>
         <div class="px-5 pb-5">
-          <a href="/blog/{{blog.id}}"><h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{blog.title}}</h5></a>
+          <a href="/blog/{{blog.id}}"><h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{blog.title}}</h5></a>
+          <div class="flex justify-between mb-2 text-sm">
+            <p class="text-gray-600 dark:text-gray-400">{{blog.author.username}}</p>
+            <p class="text-gray-600 dark:text-gray-400">{{blog.created_at | date:'d M Y'}}</p>
+          </div>
           <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{blog.content | truncatechars:50}}</p>
           <a href="/blog/{{blog.id}}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Read more<svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

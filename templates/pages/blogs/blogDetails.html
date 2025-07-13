@@ -1,7 +1,43 @@
-{%extends 'layouts/main.html'%}
-{%block title%}Blog Details{%endblock%}
-{%block content%}
-    <div class="container">
-        {{blog.title}}
+{% extends 'layouts/main.html' %}
+{% block title %}
+  Blog Details
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="border rounded-lg max-w-2xl mx-auto p-4 shadow-lg min-h-[80vh] bg-gray-100">
+      <div class="flex flex-col space-y-2">
+        <div>
+          <p class="px-6 py-1 bg-gradient-to-r from-green-400 to-green-800 rounded-4xl text-white w-1/4 font-semibold text-md">Category</p>
+        </div>
+        <div>
+          <h1 class="text-2xl font-extrabold text-gray-900">{{ blog.title }}</h1>
+        </div>
+        <div class="border-1 rounded-lg border-gray-400 my-2"></div>
+        <div class="flex gap-4 items-center">
+          <img src="{{ blog.author.profile.profile_image.url }}" alt="Blog Author" class="rounded-full border-1 border-gray-500 w-10 h-10 fill-current" />
+          <div class="flex flex-col">
+            <p class="font-semibold">By: {{ blog.author.username }}</p>
+            <p class="text-sm">{{ blog.created_at|date:'M d, Y' }}</p>
+          </div>
+        </div>
+        <div class="p-4">
+          <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="rounded-sm" />
+        </div>
+        <div class="bg-green-200 mx-2 border-l-4 border-green-500 rounded-lg p-4">
+          <p class="text-md text-gray-700">{{ blog.content }}</p>
+        </div>
+        <div class="border-1 rounded-lg border-gray-400 my-2"></div>
+        <div class="py-2">
+          <p class="text-lg font-bold text-gray-900">Related Tags</p>
+          <div class="flex gap-2">
+            {% for tag in blog.tags.all %}
+              <div class="bg-gradient-to-r from-green-400 to-green-800 rounded-4xl px-3 py-1">
+                <p class="text-white">{{ tag }}</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
     </div>
-{%endblock%}
+  </div>
+{% endblock %}
