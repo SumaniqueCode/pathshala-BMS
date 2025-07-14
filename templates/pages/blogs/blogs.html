@@ -4,25 +4,34 @@
   Blogs
 {% endblock %}
 {% block content %}
-<h1 class="text-center text-4xl font-bold text-gray-800 mb-6">All Blogs</h1>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-y-2">
-    {% for blog in blogs %}
-      <div class="max-w-sm bg-white hover:scale-[102%] duration-300 border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-        <a href="/blog/{{blog.id}}" class=""><img class="my-2 mx-auto rounded-t-lg h-60" src="{{blog.image.url}}" alt="" /></a>
-        <div class="px-5 pb-5">
-          <a href="/blog/{{blog.id}}"><h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{blog.title}}</h5></a>
-          <div class="flex justify-between mb-2 text-sm">
-            <p class="text-gray-600 dark:text-gray-400">{{blog.author.username}}</p>
-            <p class="text-gray-600 dark:text-gray-400">{{blog.created_at | date:'d M Y'}}</p>
+  <h1 class="text-center text-4xl font-bold text-gray-800 mb-6">All Blogs</h1>
+  {% if blogs %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-y-2">
+      {% for blog in blogs %}
+        <div class="max-w-sm bg-white hover:scale-[102%] duration-300 border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+          <a href="/blog/{{ blog.id }}" class=""><img class="my-2 mx-auto rounded-t-lg h-60" src="{{ blog.image.url }}" alt="" /></a>
+          <div class="px-5 pb-5">
+            <a href="/blog/{{ blog.id }}"><h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ blog.title }}</h5></a>
+            <div class="flex justify-between mb-2 text-sm">
+              <p class="text-gray-600 dark:text-gray-400">{{ blog.author.username }}</p>
+              <p class="text-gray-600 dark:text-gray-400">{{ blog.created_at|date:'d M Y' }}</p>
+            </div>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ blog.content|truncatechars:50 }}</p>
+            <a href="/blog/{{ blog.id }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              Read more<svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+              </svg>
+            </a>
           </div>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{blog.content | truncatechars:50}}</p>
-          <a href="/blog/{{blog.id}}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Read more<svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-          </a>
         </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="min-h-[60vh] border-3 w-1/3 bg-gray-100 max-w-lg flex flex-col justify-center mx-auto border-gray-200 rounded-lg p-4 text-center">
+      <h1 class="text-center text-lg font-bold text-gray-800 mb-6">No Blogs Found</h1>
+      <div>
+        <a href="/blog/add" class="items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-500 rounded-lg">Add Blogs</a>
       </div>
-    {% endfor %}
-  </div>
+    </div>
+  {% endif %}
 {% endblock %}

@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from blogs.models import Blog
+from blogs.models import Blog, Category
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/auth/log-in')
 def addBlogPage(request):
-    return render(request, "pages/blogs/addBlogPage.html")
+    categories = Category.objects.all()
+    return render(request, "pages/blogs/addBlogPage.html", {"categories": categories})
 
 
 def validate_blog(data):
