@@ -45,7 +45,7 @@
           <select name="category" class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none">
             <option value="">Select</option>
             {% for category in categories %}
-              <option value="{{ category }}">{{ category }}</option>
+              <option value="{{ category.id }}">{{ category }}</option>
             {% endfor %}
           </select>
           {% if errors.categories %}
