@@ -76,6 +76,12 @@ def createBlog(request):
         messages.success(request, "Blog Created Successfully!")
         return redirect("/blogs")
 
-def blogDetails(request,id):
+def blogDetails(request, id):
     blog = Blog.objects.get(id=id)
     return render( request, 'pages/blogs/blogDetails.html', {"blog": blog})
+
+def editBlogPage(request, id):
+    blog = Blog.objects.get(id=id)
+    categories = Category.objects.all()
+    tags = ", ".join(blog.tags.names())
+    return render(request, 'pages/blogs/editBlogPage.html', {"blog": blog, "categories": categories, 'tags': tags})
