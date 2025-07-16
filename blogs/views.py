@@ -85,3 +85,32 @@ def editBlogPage(request, id):
     categories = Category.objects.all()
     tags = ", ".join(blog.tags.names())
     return render(request, 'pages/blogs/editBlogPage.html', {"blog": blog, "categories": categories, 'tags': tags})
+
+def updateBlog(request, id):
+    if request.method == "POST":
+        data = request.POST.copy()
+        data["image"] = request.FILES.get("image")
+        data["attachment"] = request.FILES.get("attachment")
+        errors = validate_blog(data)
+        if errors:
+            categories = Category.objects.all()
+            tags = data['tags']
+            data['category'] = Category.objects.get(id = data['category'])
+            context= {"errors": errors, "blog":data, "categories":categories, 'tags': tags}
+            return render(request, "pages/blogs/editBlogPage.html", context)
+        
+        else:
+            blog = Blog.objects.get(pk=id)
+            blog.title = data["title"]
+            blog.content = data["content"]
+            
+            if data["image"]:
+                blog.image = data["image"]
+            if data["attachment"]:
+                blog.attachment = data["attachment"]
+            category = Category.objects.get( pk = data['category'] )
+            blog.category = category
+            blog.tags.set([tag.strip() for tag in data['tags'].split(',')])
+            blog.save()
+            messages.success(request, "Blog Updated Successfully!")
+            return redirect(f'/blog/{id}')

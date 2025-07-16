@@ -38,6 +38,7 @@ blog_urlpatterns = [
     path("create", createBlog),
     path("<int:id>", blogDetails),  # "blog/{{blog.id}}" e.g: "blog/1"
     path("edit/<int:id>", editBlogPage),
+    path("update/<int:id>", updateBlog),
 ]
 
 urlpatterns = [

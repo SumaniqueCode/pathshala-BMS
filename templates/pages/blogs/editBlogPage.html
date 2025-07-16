@@ -43,7 +43,7 @@
         <div class="space-y-2">
           <label for="category" class="block text-sm font-semibold text-gray-700 normal-case">Category</label>
           <select name="category" class="w-full p-3 border-2 border-green-300 rounded-lg focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all outline-none">
-            <option value="{{ blog.category }}">{{ blog.category }}</option>
+            <option value="{{ blog.category.id }}">{{ blog.category }}</option>
             {% for category in categories %}
               <option value="{{ category.id }}">{{ category }}</option>
             {% endfor %}
@@ -67,7 +67,7 @@
           {% endif %}
         </div>
 
-        <button class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors shadow-lg hover:shadow-xl" type="submit">Add Blog</button>
+        <button class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors shadow-lg hover:shadow-xl" type="submit">Edit Blog</button>
       </form>
     </div>
   </div>
