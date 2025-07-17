@@ -1,0 +1,22 @@
+{% extends 'layouts/main.html' %}
+{% block title %}
+  Admin Dashboard
+{% endblock %}
+{% block content %}
+  <div>
+    <div class="grid grid-cols-5 gap-4">
+      <nav class="text-sm font-bold border-2 border-gray-200 rounded-lg py-6 px-4 bg-gray-100 space-y-3 min-h-[65vh] uppercase">
+        <div class="">
+          <a class="hover:text-green-700 hover:text-[14.3px] duration-200" href="/writer/blogs">My Blogs</a>
+        </div>
+        <div class="">
+          <a class="hover:text-green-700 hover:text-[14.3px] duration-200" href="/writer/bloglist">Blog List</a>
+        </div>
+      </nav>
+      <div class="col-span-4">
+        {% block panel %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

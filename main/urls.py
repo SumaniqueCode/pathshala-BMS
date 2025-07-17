@@ -41,6 +41,11 @@ blog_urlpatterns = [
     path("update/<int:id>", updateBlog),
 ]
 
+writer_urlpatterns=[
+    path("dashboard", dashboard),
+    path('bloglist', blogList),
+]
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", landingPage),
@@ -49,7 +54,9 @@ urlpatterns = [
     path("blogs/", blogPage),
     path("profile/", profilePage),
     path("blog/", include(blog_urlpatterns)),
+    path("writer/", include(writer_urlpatterns)),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
