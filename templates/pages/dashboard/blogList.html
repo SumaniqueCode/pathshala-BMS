@@ -4,7 +4,7 @@
     <h2 class="text-2xl text-green-700 underline font-bold text-center">Blog List</h2>
     <div>
       <div class="flex flex-col gap-1 my-4">
-        <div class="bg-gray-100 border-b-2 border-r-2 border-gray-200 rounded-xl grid grid-cols-4 gap-2 w-full py-2 px-4 text-left">
+        <div class="bg-gray-100 border-2 border-gray-400 rounded-xl grid grid-cols-4 gap-2 w-full py-2 px-4 text-left">
           <div class="text-lg font-bold text-green-900">Title</div>
           <div class="text-lg font-bold text-green-900">Created at</div>
           <div class="text-lg font-bold text-green-900">Updated at</div>
@@ -16,7 +16,7 @@
                border-l-green-700 
             {% elif blog.status == 'Rejected' %}
                border-l-red-700
-            {% elif blog.status == 'Inactive' %}
+            {% elif blog.status == 'Pending' %}
                border-l-yellow-600
             {% else %}
                border-l-gray-400
