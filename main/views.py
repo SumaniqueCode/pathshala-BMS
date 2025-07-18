@@ -15,7 +15,7 @@ def signupPage(request):
     return render(request, 'pages/auth/signup.html')
 
 def blogPage(request):
-    blogs  =  Blog.objects.order_by('-created_at')
+    blogs  =  Blog.objects.filter(status='Active').order_by('-created_at')
     return render(request, 'pages/blogs/blogs.html', {'blogs':blogs})
 
 @login_required(login_url='/auth/log-in/')
@@ -27,5 +27,6 @@ def dashboard(request):
     return render(request, 'pages/dashboard/dashboard.html')
 
 def blogList(request):
-    return render(request, 'pages/dashboard/blogList.html')
+    blogs = Blog.objects.filter( author = request.user).order_by('-created_at')
+    return render(request, 'pages/dashboard/blogList.html', {'blogs':blogs})
 
