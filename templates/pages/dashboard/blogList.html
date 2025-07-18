@@ -1,18 +1,27 @@
 {% extends 'pages/dashboard/layouts/admin.html' %}
 {% block panel %}
   <div>
-    <h2 class="text-2xl text-green-700 underline font-bold  text-center">Blog List</h2>
+    <h2 class="text-2xl text-green-700 underline font-bold text-center">Blog List</h2>
     <div>
       <div class="flex flex-col gap-1 my-4">
-        <div class="bg-gray-100 border-b-2 border-r-2 border-gray-200 rounded-xl grid grid-cols-4 gap-2 w-full py-2 px-4 text-left ">
+        <div class="bg-gray-100 border-b-2 border-r-2 border-gray-200 rounded-xl grid grid-cols-4 gap-2 w-full py-2 px-4 text-left">
           <div class="text-lg font-bold text-green-900">Title</div>
           <div class="text-lg font-bold text-green-900">Created at</div>
           <div class="text-lg font-bold text-green-900">Updated at</div>
           <div class="text-lg font-bold text-green-900">Actions</div>
         </div>
         {% for blog in blogs %}
-          <div class="text-left bg-gray-100 border-b-2 border-r-2 border-gray-200 rounded-xl grid grid-cols-4 gap-2 w-full py-2 px-4 hover:scale-[101%] duration-300">
-            <a href="/blog/{{ blog.id }}" class="text-lg font-bold text-green-500">{{ blog.title }}</a>
+          <div class="text-left bg-gray-100 border-b-2 border-r-2 border-gray-200 rounded-xl grid grid-cols-4 gap-2 w-full py-2 px-4 hover:scale-[101%] duration-300
+           border-l-4 {% if blog.status == 'Active' %}
+               border-l-green-700 
+            {% elif blog.status == 'Rejected' %}
+               border-l-red-700
+            {% elif blog.status == 'Inactive' %}
+               border-l-yellow-600
+            {% else %}
+               border-l-gray-400
+            {% endif %}">
+            <a href="/blog/{{ blog.id }}" class="text-lg font-bold text-green-900">{{ blog.title }}</a>
             <p class="text-sm text-gray-500">{{ blog.created_at }}</p>
             <p class="text-sm text-gray-500">{{ blog.updated_at }}</p>
             <div class="flex gap-4">
