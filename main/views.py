@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from blogs.models import Blog
 
@@ -24,9 +24,16 @@ def profilePage(request):
 
 @login_required(login_url='/auth/log-in/')
 def dashboard(request):
-    return render(request, 'pages/dashboard/dashboard.html')
+    return render(request, 'pages/dashboard/writer/dashboard.html')
 
 def blogList(request):
     blogs = Blog.objects.filter( author = request.user).order_by('-created_at')
-    return render(request, 'pages/dashboard/blogList.html', {'blogs':blogs})
+    return render(request, 'pages/dashboard/writer/blogList.html', {'blogs':blogs})
+
+@login_required(login_url="/auth/log-in")
+def adminDashboard(request):
+    if request.user.profile.role=="Admin":
+        return render(request, 'pages/dashboard/admin/dashboard.html')
+    else:
+        return redirect('/writer/dashboard')
 

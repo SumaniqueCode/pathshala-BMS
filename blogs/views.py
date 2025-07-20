@@ -68,6 +68,7 @@ def createBlog(request):
             status = "Active"
         else:
             status = "Pending"
+            
         blog = Blog.objects.create(
             title=data["title"],
             content=data["content"],

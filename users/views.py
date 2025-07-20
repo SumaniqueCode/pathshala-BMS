@@ -21,7 +21,10 @@ def loginUser(request):
             if authenticated_user:
                 login(request, authenticated_user) # saves the user data in session 
                 messages.success(request, "You have successfully logged in")
-                return redirect("/") # redirects to /home route
+                if authenticated_user.profile.role=="Admin":
+                    return redirect('/admin/dashboard')
+                else:
+                    return redirect("/writer/dashboard") # redirects to dashboard according to role
             else:
                 errors['password'] = "Invalid Password!" #stores error in key 'password'
         else:
