@@ -62,6 +62,12 @@ def createBlog(request):
         if errors:
             return render(request, "pages/blogs/addBlogPage.html", {"errors": errors})
         category = Category.objects.get( pk = data['category'] )
+        
+        # if admin is creating the blog the status should be active otherwise pending
+        if request.user.profile.role == "Admin":
+            status = "Active"
+        else:
+            status = "Pending"
         blog = Blog.objects.create(
             title=data["title"],
             content=data["content"],
@@ -69,6 +75,7 @@ def createBlog(request):
             attachment=data["attachment"],
             author = request.user, 
             category = category,
+            status = status
         )
         # blog.tags.add(*data['tags'].split(",")) # split() seperates the data and keeps in list and * unwraps the list
         #Alternative Way
@@ -114,3 +121,10 @@ def updateBlog(request, id):
             blog.save()
             messages.success(request, "Blog Updated Successfully!")
             return redirect(f'/blog/{id}')
+        
+def deleteBlog(request, id):
+    if request.method == "POST":
+        blog = Blog.objects.get(pk=id)
+        blog.delete()
+        messages.success(request, "Blog Deleted Successfully!")
+        return redirect('/writer/bloglist')
