@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from blogs.models import Blog, Category
+from blogs.models import Blog, Category, BlogStats
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/auth/log-in')
@@ -86,6 +86,9 @@ def createBlog(request):
 
 def blogDetails(request, id):
     blog = Blog.objects.get(id=id)
+    blogstats, created = BlogStats.objects.get_or_create(blog = blog)
+    blogstats.blog_clicks +=1
+    blogstats.save()
     return render( request, 'pages/blogs/blogDetails.html', {"blog": blog})
 
 def editBlogPage(request, id):
@@ -129,3 +132,7 @@ def deleteBlog(request, id):
         blog.delete()
         messages.success(request, "Blog Deleted Successfully!")
         return redirect('/writer/bloglist')
+    
+def myBlogs(request):
+     blogs = Blog.objects.filter(author=request.user)
+     return render(request, 'pages/blogs/blogs.html', {"blogs": blogs})

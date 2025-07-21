@@ -45,6 +45,7 @@ blog_urlpatterns = [
 writer_urlpatterns=[
     path("dashboard", dashboard),
     path('bloglist', blogList),
+    path("blogs", myBlogs)
 ]
 
 admin_urlpatterns=[

@@ -33,3 +33,13 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+    
+class BlogStats(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='stats')
+    blog_clicks = models.PositiveIntegerField(default=0)
+    unique_views = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField( auto_now=True, editable=False )
+    
+    def __str__(self):
+        return f'{self.blog.title} stats'
