@@ -1,6 +1,29 @@
-{%extends 'pages/dashboard/layouts/writer.html'%}
-{%block panel%}
-<div>
-    <h1 class="text-2xl font-bold text-blue-600">This is Writer Dashboard</h1>
-</div>
-{%endblock%}
+{% extends 'pages/dashboard/layouts/writer.html' %}
+{% block panel %}
+  <div>
+    <h1 class="text-2xl font-bold text-blue-600">This is Writer Dashboard </h1>
+    <div class="px-4 py-2">
+      <div id="chart"></div>
+    </div>
+    <script>
+      var options = {
+        chart: {
+          type: 'line'
+        },
+        series: [
+          {
+            name: 'Clicks',
+            data: {{blog_clicks|safe}}
+          }
+        ],
+        xaxis: {
+          categories: {{click_date|safe}}
+        }
+      }
+      
+      var chart = new ApexCharts(document.querySelector('#chart'), options)
+      
+      chart.render()
+    </script>
+  </div>
+{% endblock %}

@@ -1,6 +1,7 @@
+import json
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from blogs.models import Blog
+from blogs.models import Blog, BlogStats
 
 def landingPage(request):
     return render(request,'pages/index.html')
@@ -24,7 +25,10 @@ def profilePage(request):
 
 @login_required(login_url='/auth/log-in/')
 def dashboard(request):
-    return render(request, 'pages/dashboard/writer/dashboard.html')
+    blogstats = BlogStats.objects.all()
+    blog_clicks = [b.blog_clicks for b in blogstats]
+    click_date = [b.created_at.strftime('%Y-%m-%d') for b in blogstats]
+    return render(request, 'pages/dashboard/writer/dashboard.html', {"blog_clicks":blog_clicks, "click_date":click_date})
 
 def blogList(request):
     blogs = Blog.objects.filter( author = request.user).order_by('-created_at')
