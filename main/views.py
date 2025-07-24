@@ -67,19 +67,34 @@ def blogList(request):
 @login_required(login_url="/auth/log-in")
 def adminDashboard(request):
     if request.user.profile.role == "Admin":
+        
+        #overall blog stats
         blogstats = BlogStats.objects.all().order_by("created_at")
         click_data = defaultdict(int)
         unique_data = defaultdict(int)
-        
+                    
         for b in blogstats:
             date_str = b.created_at.strftime("%Y-%m-%d")
             click_data[date_str] += b.blog_clicks
             unique_data[date_str] += b.unique_views
-        
-        # blog stats
+            
         blog_clicks = list(click_data.values())
         click_date = list(click_data.keys())
         unique_views = list(unique_data.values())
+            
+        #admin blog stats
+        admin_data = defaultdict(int)
+        admin_unique= defaultdict(int)
+        admin_blogs = Blog.objects.filter(author=request.user)
+        admin_blogstats = BlogStats.objects.filter(blog__in=admin_blogs).order_by("created_at")
+        for b in admin_blogstats:
+            date_str = b.created_at.strftime("%Y-%m-%d")
+            admin_data[date_str] += b.blog_clicks
+            admin_unique[date_str] += b.unique_views
+
+        admin_clicks = list(admin_data.values())
+        admin_unique_views = list(admin_unique.values())
+        admin_click_date = list(admin_data.keys())
         
         # counting users
         users = User.objects.all()
@@ -96,6 +111,9 @@ def adminDashboard(request):
             "blog_clicks": blog_clicks,
             "click_date": click_date,
             "unique_views": unique_views,
+            "admin_clicks": admin_clicks,
+            "admin_click_date": admin_click_date,
+            "admin_unique_views": admin_unique_views,
         }
         return render(request, "pages/dashboard/admin/dashboard.html", context)
     else:

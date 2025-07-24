@@ -2,8 +2,9 @@
 {% block adminpanel %}
   <div>
     <h1 class="text-2xl font-bold text-green-800 underline px-4 pb-4">Admin Dashboard</h1>
-    <div class="px-4 py-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="px-4 py-2 grid grid-cols-1 md:grid-cols-4 gap-4">
       <div id="chart" class="col-span-1 md:col-span-2 bg-white"></div>
+      <div id="admin-chart" class="col-span-1 md:col-span-2 bg-white"></div>
       <div id="user-chart" class="col-span-1 md:col-span-2 bg-white"></div>
     </div>
     <script>
@@ -43,6 +44,44 @@
         }
       }
 
+      //admin blog performance chart
+            var adminChart = {
+        chart: {
+          type: 'line'
+        },
+        series: [
+          {
+            name: 'Clicks',
+            data: {{admin_clicks|safe}}
+          },
+          {
+            name: 'Unique Views',
+            data: {{admin_unique_views|safe}}
+          }
+        ],
+        xaxis: {
+          categories: {{admin_click_date|safe}}
+        },
+        yaxis: [
+    {
+      title: {
+        text: "Blog Clicks"
+      },
+    },
+    {
+      opposite: true,
+      title: {
+        text: "Unique Views"
+      }
+    }
+        ], 
+        title:{
+          text: 'Admin Blogs Performance',
+          align: 'center',
+        }
+      }
+
+// new users chart
       var userChart = {
         chart: {
           type: 'bar'
@@ -64,9 +103,13 @@
       
       var chart = new ApexCharts(document.querySelector('#chart'), options)
       var userChart = new ApexCharts(document.querySelector('#user-chart'), userChart)
+    var adminChart = new ApexCharts(document.querySelector('#admin-chart'), adminChart)
+
 
       chart.render()
-      userChart.render()
+      adminChart.render()
+    userChart.render()
+
     </script>
   </div>
 {% endblock %}
