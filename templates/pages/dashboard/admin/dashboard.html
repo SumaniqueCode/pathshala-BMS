@@ -1,5 +1,72 @@
-{% extends "layouts/main.html" %}
-{%block title%}Admin Dashboard {%endblock%}
-{%block content%}
-<h1 class=" text-center text-2xl font-bold mb-4">This is Admin Dashboard</h1>
-{%endblock%}
+{% extends 'pages/dashboard/layouts/admin.html' %}
+{% block adminpanel %}
+  <div>
+    <h1 class="text-2xl font-bold text-green-800 underline px-4 pb-4">Admin Dashboard</h1>
+    <div class="px-4 py-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div id="chart" class="col-span-1 md:col-span-2 bg-white"></div>
+      <div id="user-chart" class="col-span-1 md:col-span-2 bg-white"></div>
+    </div>
+    <script>
+      var options = {
+        chart: {
+          type: 'line'
+        },
+        series: [
+          {
+            name: 'Clicks',
+            data: {{blog_clicks|safe}}
+          },
+          {
+            name: 'Unique Views',
+            data: {{unique_views|safe}}
+          }
+        ],
+        xaxis: {
+          categories: {{click_date|safe}}
+        },
+        yaxis: [
+    {
+      title: {
+        text: "Blog Clicks"
+      },
+    },
+    {
+      opposite: true,
+      title: {
+        text: "Unique Views"
+      }
+    }
+        ], 
+        title:{
+          text: 'Blog Clicks and Unique Views',
+          align: 'center',
+        }
+      }
+
+      var userChart = {
+        chart: {
+          type: 'bar'
+        },
+        series: [
+          {
+            name: 'New Users',
+            data: {{user_count|safe}}
+          },
+        ],
+        xaxis: {
+          categories: {{user_date|safe}}
+        },
+        title:{
+          text: 'Website New Users',
+          align: 'center',
+        }
+      }
+      
+      var chart = new ApexCharts(document.querySelector('#chart'), options)
+      var userChart = new ApexCharts(document.querySelector('#user-chart'), userChart)
+
+      chart.render()
+      userChart.render()
+    </script>
+  </div>
+{% endblock %}
