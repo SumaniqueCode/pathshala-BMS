@@ -71,10 +71,10 @@ def adminDashboard(request):
         click_data = defaultdict(int)
         unique_data = defaultdict(int)
         
-    for b in blogstats:
-        date_str = b.created_at.strftime("%Y-%m-%d")
-        click_data[date_str] += b.blog_clicks
-        unique_data[date_str] += b.unique_views
+        for b in blogstats:
+            date_str = b.created_at.strftime("%Y-%m-%d")
+            click_data[date_str] += b.blog_clicks
+            unique_data[date_str] += b.unique_views
         
         # blog stats
         blog_clicks = list(click_data.values())
