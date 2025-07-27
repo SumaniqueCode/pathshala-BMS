@@ -60,8 +60,12 @@ def dashboard(request):
 
 
 def blogList(request):
-    blogs = Blog.objects.filter(author=request.user).order_by("-created_at")
-    return render(request, "pages/dashboard/writer/blogList.html", {"blogs": blogs})
+    if request.user.profile.role == "Admin":
+        blogs = Blog.objects.all().order_by("-created_at")
+        return render(request, "pages/dashboard/admin/blogList.html", {"blogs":blogs})
+    else:
+        blogs = Blog.objects.filter(author=request.user).order_by("-created_at")
+        return render(request, "pages/dashboard/writer/blogList.html", {"blogs": blogs}) 
 
 
 @login_required(login_url="/auth/log-in")

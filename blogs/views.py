@@ -142,3 +142,13 @@ def deleteBlog(request, id):
 def myBlogs(request):
      blogs = Blog.objects.filter(author=request.user)
      return render(request, 'pages/blogs/blogs.html', {"blogs": blogs})
+ 
+def changeStatus(request, id):
+    if request.method == "POST":
+        blog = Blog.objects.get(pk=id)
+        status = request.POST.get('status')
+        blog.status = status
+        blog.save()
+        messages.success(request, "Blog Status Updated Successfully!")
+        return redirect('/admin/bloglist')
+    
