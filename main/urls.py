@@ -65,6 +65,7 @@ urlpatterns = [
     path("blog/", include(blog_urlpatterns)),
     path("writer/", include(writer_urlpatterns)),
     path("admin/", include(admin_urlpatterns)),
+    path('accounts/', include('allauth.urls')),
 ]
 
 
