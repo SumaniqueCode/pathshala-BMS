@@ -70,15 +70,18 @@ def createBlog(request):
         else:
             status = "Pending"
             
-        blog = Blog.objects.create(
+        blog = Blog(
             title=data["title"],
             content=data["content"],
-            image=data["image"],
-            attachment=data["attachment"],
             author = request.user, 
             category = category,
             status = status
         )
+        if data["image"]:
+            blog.image = data["image"]
+        if data["attachment"]:
+            blog.attachment = data["attachment"]
+        blog.save()
         # blog.tags.add(*data['tags'].split(",")) # split() seperates the data and keeps in list and * unwraps the list
         #Alternative Way
         blog.tags.add(*[tag.strip() for tag in data['tags'].split(',')])

@@ -1,0 +1,26 @@
+{% comment %}searbar component{% endcomment %}
+<div>
+  <input type="text" name="" id="searchInput" placeholder=" Search Blogs..."
+   class="mb-4 rounded-lg bg-white border border-green-300 text-gray-600 text-sm p-2 w-full focused:outline-none focused:ring-2 focused:ring-green-300"
+    />
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        const searchInput = document.getElementById("searchInput");
+        if (!searchInput) return ;
+
+        searchInput.addEventListener("input", function(){
+            const query = this.value.toLowerCase();
+            const blogItems = document.querySelectorAll(".blog-item");
+            blogItems.forEach((blog) => {
+                const title = blog.dataset.title;
+                const content = blog.dataset.content;
+                const author = blog.dataset.author;
+                
+                //for matching query
+                const matches = title.includes(query) || content.includes(query) || author.includes(query);
+                blog.style.display = matches ? "block" : "none";
+            });
+        });
+    });
+</script>
